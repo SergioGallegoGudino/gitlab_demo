@@ -15,10 +15,11 @@
         mode: 0755
 
     - name: Sincronizar archivos del sitio web
-      synchronize:
+      ansible.posix.synchronize:
         src: "{{ artifact_path }}/"
         dest: "{{ base_path }}/{{ target_env }}/"
-        recursive: yes
+        archive: yes
+        compress: yes
         rsync_opts:
           - "--chmod=Du=rwx,Dg=rx,Do=rx,Fu=rw,Fg=r,Fo=r"
     
