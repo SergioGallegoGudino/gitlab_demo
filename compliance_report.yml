@@ -22,7 +22,7 @@
 
     - name: Get our facts straight
       ansible.builtin.set_fact:
-        _profile: 'ospp'
+        _profile: 'xccdf_org.ssgproject.content_profile_stig'
         _report_dir: /tmp/oscap-reports
 
     - name: Ensure OpenSCAP tools are installed
