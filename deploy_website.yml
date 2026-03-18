@@ -1,5 +1,4 @@
-# deploy_website.yml
-- name: Deploy website via GitLab CI
+- name: Deploy website
   hosts: all
   become: yes
 
@@ -22,8 +21,7 @@
         recursive: yes
         rsync_opts:
           - "--chmod=Du=rwx,Dg=rx,Do=rx,Fu=rw,Fg=r,Fo=r"
-      delegate_to: localhost
-
+    
     - name: Recargar nginx
       service:
         name: nginx
