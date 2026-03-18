@@ -22,7 +22,7 @@
 
     - name: Get our facts straight
       ansible.builtin.set_fact:
-        _profile: '{{ compliance_profile | replace("pci_dss", "pci-dss") }}'
+        _profile: 'ospp'
         _report_dir: /tmp/oscap-reports
 
     - name: Ensure OpenSCAP tools are installed
