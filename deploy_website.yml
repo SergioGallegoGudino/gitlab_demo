@@ -14,11 +14,3 @@
         owner: gitlab-runner
         group: gitlab-runner
         mode: '0755'
-
-    - name: Ajustar permisos recursivamente para subcarpetas
-      ansible.builtin.file:
-        path: /srv/nginx/pages
-        recurse: yes
-        owner: gitlab-runner
-        group: gitlab-runner
-        mode: '0755'
