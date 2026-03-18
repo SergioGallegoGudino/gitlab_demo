@@ -1,16 +1,14 @@
-- name: Deploy website
+- name: Creacion entorno nginx
   hosts: all
-  become: yes
-
-  vars:
-    base_path: "/srv/nginx/pages"
-
+  become: true
   tasks:
-    - name: Crear directorio destino
-      file:
-        path: "{{ base_path }}/{{ target_env }}"
+    - name: Instalar nginx
+      ansible.builtin.dnf:
+        name: nginx
+        state: present
+        
+    - name: Crear carpetas
+      ansible.builtin.file:
+        path: /srv/nginx/pages
         state: directory
-        owner: nginx
-        group: nginx
-        mode: 0755
-    
+        owner: root
