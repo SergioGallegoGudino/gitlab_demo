@@ -11,4 +11,4 @@
       ansible.builtin.file:
         path: /srv/nginx/pages
         state: directory
-        owner: root
+        owner: gitlab-runner
