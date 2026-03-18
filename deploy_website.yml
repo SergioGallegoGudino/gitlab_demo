@@ -1,0 +1,29 @@
+# deploy_website.yml
+- name: Deploy website via GitLab CI
+  hosts: all
+  become: yes
+
+  vars:
+    base_path: "/srv/nginx/pages"
+
+  tasks:
+    - name: Crear directorio destino
+      file:
+        path: "{{ base_path }}/{{ target_env }}"
+        state: directory
+        owner: nginx
+        group: nginx
+        mode: 0755
+
+    - name: Sincronizar archivos del sitio web
+      copy:
+        src: "{{ artifact_path }}/"
+        dest: "{{ base_path }}/{{ target_env }}/"
+        owner: nginx
+        group: nginx
+        mode: 0644
+
+    - name: Recargar nginx
+      service:
+        name: nginx
+        state: reloaded
