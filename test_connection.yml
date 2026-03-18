@@ -1,0 +1,6 @@
+- name: Comprobar conexion al sistema
+  hosts: all
+  become: yes
+  
+  tasks:
+    - shell: echo "Esto se ejecuta en el servidor remoto"
