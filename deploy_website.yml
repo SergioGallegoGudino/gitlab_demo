@@ -7,8 +7,18 @@
         name: nginx
         state: present
         
-    - name: Crear carpetas
+    - name: Crear carpeta principal para páginas
       ansible.builtin.file:
         path: /srv/nginx/pages
         state: directory
         owner: gitlab-runner
+        group: gitlab-runner
+        mode: '0755'
+
+    - name: Ajustar permisos recursivamente para subcarpetas
+      ansible.builtin.file:
+        path: /srv/nginx/pages
+        recurse: yes
+        owner: gitlab-runner
+        group: gitlab-runner
+        mode: '0755'
