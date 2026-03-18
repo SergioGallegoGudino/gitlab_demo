@@ -16,12 +16,13 @@
         mode: 0755
 
     - name: Sincronizar archivos del sitio web
-      copy:
+      synchronize:
         src: "{{ artifact_path }}/"
         dest: "{{ base_path }}/{{ target_env }}/"
-        owner: nginx
-        group: nginx
-        mode: 0644
+        recursive: yes
+        rsync_opts:
+          - "--chmod=Du=rwx,Dg=rx,Do=rx,Fu=rw,Fg=r,Fo=r"
+      delegate_to: localhost
 
     - name: Recargar nginx
       service:
