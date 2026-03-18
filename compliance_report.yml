@@ -33,34 +33,13 @@
     - name: Configure httpd
       when: use_httpd | bool
       block:
-        - name: Install httpd
-          ansible.builtin.dnf:
-            name: httpd
-            state: present
-          notify: Restart httpd
-
+      
         - name: Override report directory
           ansible.builtin.set_fact:
             _report_dir: /var/www/html/oscap-reports
 
         - name: Gather service facts
           ansible.builtin.service_facts:
-
-        - name: Enable firewall http service
-          ansible.posix.firewalld:
-            service: http
-            state: enabled
-            immediate: true
-            permanent: true
-          when:
-            - "'firewalld.service' in ansible_facts.services"
-            - ansible_facts.services["firewalld.service"].state == "running"
-
-        - name: Disable httpd welcome page
-          ansible.builtin.file:
-            path: /etc/httpd/conf.d/welcome.conf
-            state: absent
-          notify: Restart httpd
 
     - name: Ensure report directory exists
       ansible.builtin.file:
@@ -107,10 +86,3 @@
         - _oscap.rc == 2
         - instance_id is defined
       become: false
-
-  handlers:
-    - name: Restart httpd
-      ansible.builtin.service:
-        name: httpd
-        state: restarted
-        enabled: true
